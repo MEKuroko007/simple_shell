@@ -11,7 +11,7 @@ char *_not_found(char *av[], int i, char *cmd)
 {
 	int length;
 	char *error;
-	char *ver_str;
+	char *shell;
 
 	length = _strlen(av[0]) + _numlen(i) + _strlen(cmd) + 16;
 	error = (char *)malloc(sizeof(char) * (length + 1));
@@ -23,15 +23,15 @@ char *_not_found(char *av[], int i, char *cmd)
 	_strcpy(error, av[0]);
 	_strcat(error, ": ");
 
-	ver_str = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
+	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
 
-	if (ver_str == NULL)
+	if (shell == NULL)
 	{
 		free(error);
 		return (NULL);
 	}
-	_itos(i, ver_str);
-	_strcat(error, ver_str);
+	_itos(i, shell);
+	_strcat(error, shell);
 
 	_strcat(error, ": ");
 	_strcat(error, cmd);

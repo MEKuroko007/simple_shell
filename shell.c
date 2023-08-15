@@ -15,6 +15,7 @@ int main(int ac, char *av[])
 	if (isPiped)
 	{
 		non_interactive_mode(av);
+		
 	}
 	else
 	{

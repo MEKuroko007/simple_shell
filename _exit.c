@@ -13,34 +13,37 @@ int exit_shell(char *args[], char *av[], int counter, char *line)
     {
         int status = _atoi(args[1]);
         int str_len = _strlen(args[1]);
-        int big_number = status > INT_MAX;
+        int num = status > INT_MAX;
 
-        if (!isdigit(args[1][0]) || str_len > 10 || big_number)
+        if (!isdigit(args[1]) || str_len > 10 || num)
         {
-            if (_strcmp("exit", args[0]) == 0)
-            {
+            // if (_strcmp("exit", args[0]) == 0)
+            // {
                 char *error_message = error_exit_shell(av, args, counter);
                 if (error_message != NULL)
                 {
                     write(2, error_message, _strlen(error_message));
                     free(error_message);
-                    // exit(0);
+                    
                 }
-                
-            }
-            return (0);
+                exit(2);
+            // }
+           
         }
         free_arguments(args);
         free(line);
 
-        // exit(0);
+        exit(status % 256);
+    }else if (strcmp(args[0], "exit") == 0)
+    {
+        free_arguments(args);
+        free(line);
+        exit(0);
+    }else
+    {
+        exit(0);
     }
-    free_arguments(args);
-    free(line);
-
-    exit(2);
-
-    // return (2);
+    
 }
 
 char *error_exit_shell(char *av[], char *args[], int counter)

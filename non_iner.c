@@ -41,8 +41,7 @@ int non_interactive_mode(char *av[])
             continue;
         }else if (_strcmp(args[0], "exit") == 0)
         {
-            exitStatus = exit_shell(args, av, counter);
-            free(line);
+            exitStatus = exit_shell(args, av, counter,line);
             break;
         }
         pid = fork();

@@ -39,7 +39,7 @@ void interactive_mode(char *av[]) {
         args = _arguments(line);
         if (strcmp(args[0], "exit") == 0)
         {
-            exitStatus = exit_shell(args, av, counter);
+            exitStatus = exit_shell(args, av, counter,line);
             // free_arguments(args);
             // free(line);
             // free(cmd);

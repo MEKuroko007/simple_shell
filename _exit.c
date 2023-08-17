@@ -7,7 +7,7 @@
  * @counter: counter value
  * Return: 0 on success.
  */
-int exit_shell(char *args[], char *av[], int counter)
+int exit_shell(char *args[], char *av[], int counter, char *line)
 {
     if (args[1] != NULL)
     {
@@ -24,20 +24,23 @@ int exit_shell(char *args[], char *av[], int counter)
                 {
                     write(2, error_message, _strlen(error_message));
                     free(error_message);
-                
+                    // exit(0);
                 }
-                free(error_message);
+                
             }
-            return 1;
+            return (0);
         }
         free_arguments(args);
+        free(line);
 
-        exit(status % 256);
+        // exit(0);
     }
     free_arguments(args);
+    free(line);
+
     exit(2);
 
-    return 0;
+    // return (2);
 }
 
 char *error_exit_shell(char *av[], char *args[], int counter)

@@ -62,7 +62,7 @@ void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 int _atoi(const char *s);
 /**/
-int exit_shell(char *args[], char *av[], int counter);
+int exit_shell(char *args[], char *av[], int counter,char *line);
 char *error_exit_shell(char *av[], char *args[], int counter);
 
 #endif /* MAIN_H */

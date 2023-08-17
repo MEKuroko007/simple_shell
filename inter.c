@@ -21,7 +21,8 @@ void interactive_mode(char *av[]) {
     }
 
     ssize_t lines;
-    while (1) {
+    while (1)
+    {
         write(STDOUT_FILENO, ":> ", 3);
         lines = getline(&line, &bufsize, stdin);
         if (lines == -1) {
@@ -47,9 +48,9 @@ void interactive_mode(char *av[]) {
             break;
         }else if (_strcmp(args[0], "env") == 0)
 		{
-			exitStatus = _env(args, line);
+			exitStatus = _env(args);
             // free(line);
-            // free(args);
+            free_arguments(args);
 			continue; }
         pid = fork();
 

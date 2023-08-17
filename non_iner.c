@@ -34,7 +34,8 @@ int non_interactive_mode(char *av[])
 			break; }
         else if (_strcmp(args[0], "env") == 0)
 		{
-			exitStatus = _env(args, line);
+			exitStatus = _env(args);
+			free_arguments(args);
 			continue; }
 		pid = fork();
 		if (pid < 0)

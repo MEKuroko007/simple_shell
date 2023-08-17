@@ -64,6 +64,6 @@ int _atoi(const char *s);
 /**/
 int exit_shell(char *args[], char *av[], int counter,char *line);
 char *error_exit_shell(char *av[], char *args[], int counter);
-int _env(char *args[], char *line);
+int _env(char *args[]);
 
 #endif /* MAIN_H */

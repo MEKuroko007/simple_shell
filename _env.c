@@ -5,9 +5,9 @@
  * @args:args
  * Return: 1 on success.
  */
-int _env(char *args[], char *line)
+int _env(char *args[])
 {
-    (void)line;
+    // (void)line;
 	int i, j;
 
 	for (i = 0; environ[i]; i++)
@@ -20,8 +20,8 @@ int _env(char *args[], char *line)
 		write(STDOUT_FILENO, "\n", 1);
 	}
     // free(args);
-    free(args);
-    free(line);
+    // free(args);
+    // free(line);
 	// status = 0;
 
 	return (0);

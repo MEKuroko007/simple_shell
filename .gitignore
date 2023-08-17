@@ -1,4 +1,4 @@
-test/
-run
-checker
+tests/
+./run
+./checker
 

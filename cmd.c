@@ -2,27 +2,31 @@
 char *_cmd(char *command)
 {
     struct stat st;
+
     if (command[0] == '/' || command[0] == '.')
     {
         if (stat(command, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
         {
-            return strdup(command);
+            return _strdup(command);
         }
         else
         {
-            exit(126);
+            return NULL;
         }
     }
     else
     {
         char *path = search_in_path(command);
-        if (path)
-        {
+        if (path) {
             return path;
+        }
+        else {
+            return NULL;
         }
     }
     return NULL;
 }
+
 
 char **_arguments(char *line)
 {
@@ -30,7 +34,6 @@ char **_arguments(char *line)
     char *token;
     int i = 0;
 
-    // Allocate memory for the array of pointers
     args = malloc(MAX_ARGS * sizeof(char *));
     if (!args)
     {
@@ -41,10 +44,16 @@ char **_arguments(char *line)
     token = strtok(line, " \t\n");
     while (token)
     {
-        args[i] = strdup(token); // Allocate memory for each argument string
+        args[i] = _strdup(token);
         if (!args[i])
         {
-            perror("strdup");
+            perror("_strdup");
+            for (int j = 0; j < i; j++)
+            {
+                free(args[j]);
+            }
+            free(args);
+            free(line);  // Move this line here
             exit(EXIT_FAILURE);
         }
         i++;
@@ -53,6 +62,7 @@ char **_arguments(char *line)
     args[i] = NULL;
     return args;
 }
+
 
 
 char *search_in_path(char *command)
@@ -86,6 +96,7 @@ char *search_in_path(char *command)
     }
     return NULL;
 }
+
 void free_args(char **args)
 {
     for (int i = 0; args[i] != NULL; i++) {

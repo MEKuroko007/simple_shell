@@ -2,75 +2,76 @@
 /**
  * interactive_mode - function to handle input in interactive mode
  */
-/**
- * interactive_mode - function to handle input in interactive mode
- */
-void interactive_mode(void)
-{
-    char *line = NULL;
-    size_t bufsize = 0;
-    ssize_t lines;
-    char **args;
-    char *cmd;
-    pid_t pid;
-    int status;
 
-    while (1)
-    {
+void interactive_mode(char *av[]) {
+    char *line = NULL;
+    size_t bufsize = BUFFER_SIZE;
+    char **args = NULL;
+    char *cmd = NULL;
+    pid_t pid;
+    int status, exitStatus = 1;
+    int line_number = 1;
+
+    signal(SIGINT, handle_sigint); // Set up signal handler
+
+    line = malloc(bufsize);
+    if (!line) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+
+    ssize_t lines;
+    while (1) {
         write(STDOUT_FILENO, ":> ", 3);
         lines = getline(&line, &bufsize, stdin);
-        if (lines == -1)
-        {
-            write(1, "\n", 1);
-            exit(1);
+        if (lines == -1) {
+            write(STDOUT_FILENO, "\n", 1);
+            free(line);
+            exit(0);
         }
-		if (line[lines - 1] == '\n') {
+        if (line[lines - 1] == '\n') {
             line[lines - 1] = '\0';
         }
 
-        // Skip processing if the line is empty or contains only spaces
-        if (is_empty(line)) {
+        if (!line[0]) {
             continue;
         }
         args = _arguments(line);
         pid = fork();
 
-        if (strcmp(args[0], "exit") == 0)
-        {
-            // Free memory allocated for arguments
-            for (int i = 0; args[i] != NULL; i++) {
-                free(args[i]);
-            }
-            free(args);
-            
+        if (_strcmp(args[0], "exit") == 0) {
+            free_arguments(args);
             free(line);
             exit(0);
         }
-        if (pid < 0)
-        {
+        if (pid < 0) {
             perror("fork");
             exit(EXIT_FAILURE);
-        }
-        else if (pid == 0)
-        {
-
+        } else if (pid == 0) {
             cmd = _cmd(args[0]);
             if (cmd) {
                 execve(cmd, args, environ);
-                perror("execve"); // In case execve fails
+                perror("execve");
+            } else {
+                cleanup(args, cmd);
+                free(line);
+                exit(127);
             }
-            else
-                printf("not found");
-            exit(0);
-        }
-        else
-        {
+        } else {
             wait(&status);
+            if (WIFEXITED(status)) {
+                exitStatus = WEXITSTATUS(status);
+                if (exitStatus == 127) {
+                    char *error_msg;
+                    error_msg = _not_found(av, line_number, args[0]);
+                    write(STDERR_FILENO, error_msg, _strlen(error_msg));
+                    free(error_msg);
+                    // write(2,":)",2);
+                }
+            }
+            free_arguments(args);
         }
-
-        // Free memory allocated for arguments
-        free_args(args);
     }
-
     free(line);
 }
+

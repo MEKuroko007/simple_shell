@@ -1,26 +1,21 @@
 #include "main.h"
-/**
- * main - entry point
- * @ac:number of arguments
- * @av:arguments
- * Return:0 success
- */
+
 int main(int ac, char *av[])
 {
-	bool isPiped = !isatty(STDIN_FILENO);
-	(void)ac;
+    int exitCode = 0;
 
-	signal(SIGINT, handle_sigint);
+    bool isPiped = !isatty(STDIN_FILENO);
+    (void)ac;
 
-	if (isPiped)
-	{
-		non_interactive_mode(av);
-		
-	}
-	else
-	{
-		interactive_mode();
-	}
+    signal(SIGINT, handle_sigint);
 
-	return (0);
+    if (isPiped) {
+        exitCode = non_interactive_mode(av);
+        return exitCode;
+    }
+    else {
+        interactive_mode(av);
+        return exitCode;
+    }   
+    return 0;
 }

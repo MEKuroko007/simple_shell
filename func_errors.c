@@ -2,9 +2,9 @@
 
 /**
  * _not_found - generic error message for command not found
- * @av:arguments to obtain name of program
- * @i:counter
- * @cmd:command
+ * @av: arguments to obtain name of program
+ * @i: counter
+ * @cmd: command
  * Return: Error message
  */
 char *_not_found(char *av[], int i, char *cmd)
@@ -17,33 +17,34 @@ char *_not_found(char *av[], int i, char *cmd)
 	error = (char *)malloc(sizeof(char) * (length + 1));
 	if (error == NULL)
 	{
-		return (NULL);
+		return NULL;
 	}
 
 	_strcpy(error, av[0]);
 	_strcat(error, ": ");
 
 	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
-
 	if (shell == NULL)
 	{
-		free(error);
-		return (NULL);
+		free(error); // Free the error message if shell allocation fails
+		return NULL;
 	}
 	_itos(i, shell);
 	_strcat(error, shell);
+
+	free(shell); // Free the shell variable once it's no longer needed
 
 	_strcat(error, ": ");
 	_strcat(error, cmd);
 	_strcat(error, ": not found\n");
 
-	return (error);
+	return error;
 }
+
 /**
  * _itos - function converts int to string.
- * @n:int number
+ * @n: int number
  * @str: string
- * Return: String.
  */
 void _itos(int n, char *str)
 {
@@ -74,9 +75,9 @@ void _itos(int n, char *str)
 }
 
 /**
- * _numlen - Get the lenght of a number.
- * @n: type int number.
- * Return: Lenght of a number.
+ * _numlen - Get the length of a number.
+ * @n: int number.
+ * Return: Length of a number.
  */
 int _numlen(int n)
 {
@@ -84,7 +85,7 @@ int _numlen(int n)
 
 	if (n == 0)
 	{
-		return (1);
+		return 1;
 	}
 	else if (n < 0)
 	{
@@ -98,5 +99,5 @@ int _numlen(int n)
 		n /= 10;
 	}
 
-	return (length);
+	return length;
 }

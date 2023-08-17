@@ -20,6 +20,7 @@ extern char **environ;
 #include <stddef.h>
 #include <signal.h>
 #include <ctype.h>
+#include <limits.h>
 /**/
 int non_interactive_mode(char *av[]);
 void interactive_mode(char *av[]);
@@ -59,6 +60,9 @@ int _isdigit(const char *s);
 /* str3 */
 void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
-
+int _atoi(const char *s);
+/**/
+int exit_shell(char *args[], char *av[], int counter);
+char *error_exit_shell(char *av[], char *args[], int counter);
 
 #endif /* MAIN_H */

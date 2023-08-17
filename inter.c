@@ -10,7 +10,7 @@ void interactive_mode(char *av[]) {
     char *cmd = NULL;
     pid_t pid;
     int status, exitStatus = 1;
-    int line_number = 1;
+    int counter = 1;
 
     signal(SIGINT, handle_sigint); // Set up signal handler
 
@@ -37,13 +37,16 @@ void interactive_mode(char *av[]) {
             continue;
         }
         args = _arguments(line);
+        if (strcmp(args[0], "exit") == 0)
+        {
+            exitStatus = exit_shell(args, av, counter);
+            // free_arguments(args);
+            // free(line);
+            // free(cmd);
+            break;
+        }
         pid = fork();
 
-        if (_strcmp(args[0], "exit") == 0) {
-            free_arguments(args);
-            free(line);
-            exit(0);
-        }
         if (pid < 0) {
             perror("fork");
             exit(EXIT_FAILURE);
@@ -63,11 +66,14 @@ void interactive_mode(char *av[]) {
                 exitStatus = WEXITSTATUS(status);
                 if (exitStatus == 127) {
                     char *error_msg;
-                    error_msg = _not_found(av, line_number, args[0]);
+                    error_msg = _not_found(av, counter, args[0]);
                     write(STDERR_FILENO, error_msg, _strlen(error_msg));
                     free(error_msg);
-                    // write(2,":)",2);
                 }
+                // }else if(exitStatus == 2)
+                // {
+                //     write(2,"er",2);
+                // }
             }
             free_arguments(args);
         }

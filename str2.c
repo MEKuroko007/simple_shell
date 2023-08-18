@@ -118,12 +118,12 @@ char *_strtok(char str[], const char *delim)
  */
 int _isdigit(const char *s)
 {
-	unsigned int i;
+    unsigned int i;
 
-	for (i = 0; s[i]; i++)
-	{
-		if (s[i] < 48 || s[i] > 57)
-			return (0);
-	}
-	return (1);
+    for (i = 0; s[i]; i++)
+    {
+        if (s[i] < '0' || s[i] > '9')
+            return 0;
+    }
+    return 1;
 }

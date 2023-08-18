@@ -62,8 +62,10 @@ void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 int _atoi(const char *s);
 /**/
-int exit_shell(char *args[], char *av[], int counter,char *line);
+int exit_shell(char *args[], char *av[], int counter, char *line);
 char *error_exit_shell(char *av[], char *args[], int counter);
+int is_valid_integer(const char *str);
+/**/
 int _env(char *args[]);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 

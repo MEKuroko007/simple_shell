@@ -11,9 +11,8 @@ int non_interactive_mode(char *av[])
 	char **args;
 	pid_t pid;
 	char *cmd;
-	int status, exitStatus = 0;
+	int status, exitStatus = 0, counter = 1;
 	ssize_t read;
-	int counter = 1;
 	struct stat st;
 
 	while ((read = _getline(&line, &len, stdin)) != -1)
@@ -48,8 +47,9 @@ int non_interactive_mode(char *av[])
 
 			if (cmd)
 			{
-				execve(cmd, args, environ);
-				perror("execve");
+				if (execve(cmd, args, environ) == -1)
+                {
+				perror("execve"); }
 			}
 			else
 			{
@@ -72,15 +72,10 @@ int non_interactive_mode(char *av[])
 					error_msg = _not_found(av, counter, args[0]);
 					write(2, error_msg, strlen(error_msg));
 					free(error_msg);
-				}else if (exitStatus == 2)
-				{
-					free_arguments(args);
-					free(cmd);
-					free(line);
-					exit(2); }}
+				} }
 		}
 		free_arguments(args);
 		counter++; }
-	free(line);
+	// free(line);
 	return (exitStatus);
 }

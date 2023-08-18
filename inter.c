@@ -38,12 +38,11 @@ void interactive_mode(char *av[]) {
         args = _arguments(line);
         if (strcmp(args[0], "exit") == 0)
         {
-            exitStatus = exit_shell(args, av, counter,line);
+            exitStatus =  exit_shell(args, av, counter,line);
             break;
         }else if (_strcmp(args[0], "env") == 0)
 		{
 			exitStatus = _env(args);
-            free_arguments(args);
 			continue; }
         pid = fork();
 
@@ -54,12 +53,11 @@ void interactive_mode(char *av[]) {
             cmd = _cmd(args[0]);
             if (cmd) {
                 execve(cmd, args, environ);
-                perror("execve");
-            } else {
+                perror("execve");}
+            else {
                 cleanup(args, cmd);
                 free(line);
-                exit(127);
-            }
+                exit(127); }
         } else {
             wait(&status);
             if (WIFEXITED(status)) {

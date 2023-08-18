@@ -21,7 +21,6 @@ int non_interactive_mode(char *av[])
 		{
 			line[read - 1] = '\0';
 		}
-
 		args = _arguments(line);
 		if (!args[0])
 		{ counter++;
@@ -40,8 +39,8 @@ int non_interactive_mode(char *av[])
 		if (pid < 0)
 		{
 			perror("fork");
-			exit(EXIT_FAILURE);
-		} else if (pid == 0)
+			exit(EXIT_FAILURE); }
+        else if (pid == 0)
 		{
 			cmd = _cmd(args[0]);
 
@@ -49,15 +48,13 @@ int non_interactive_mode(char *av[])
 			{
 				if (execve(cmd, args, environ) == -1)
                 {
-				perror("execve"); }
-			}
+				perror("execve"); } }
 			else
 			{
 				free_arguments(args);
 				free(cmd);
 				free(line);
-				exit(127);
-			}
+				exit(127); }
 		}
 		else
 		{
@@ -72,10 +69,8 @@ int non_interactive_mode(char *av[])
 					error_msg = _not_found(av, counter, args[0]);
 					write(2, error_msg, strlen(error_msg));
 					free(error_msg);
-				} }
-		}
+				} } }
 		free_arguments(args);
 		counter++; }
-	// free(line);
 	return (exitStatus);
 }

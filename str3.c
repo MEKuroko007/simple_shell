@@ -47,27 +47,45 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size)
 }
 /**
  * _atoi - converts a string to an integer
- *
  * @s: string to convert
  * Return: converted integer
  */
 int _atoi(const char *s)
 {
-    int result = 0;
-    int sign = 1;
-    int i = 0;
+	int result = 0;
+	int sign = 1;
+	int i = 0;
 
-    if (s[0] == '-')
-    {
-        sign = -1;
-        i++;
+	if (s[0] == '-')
+	{
+		sign = -1;
+		i++;
+	}
+
+	while (s[i] != '\0')
+	{
+		result = result * 10 + (s[i] - '0');
+		i++;
+	}
+
+	return (sign * result);
+}
+/**
+ * _strncmp - compares two strings to a specified number 
+ * @s1:first string
+ * @s2:second string
+ * @n:size
+ * Return: 0 if success
+ */
+int _strncmp(const char *s1, const char *s2, size_t n)
+{
+    for (size_t i = 0; i < n; ++i) {
+        if (s1[i] != s2[i]) {
+            return (unsigned char)s1[i] - (unsigned char)s2[i];
+        }
+        if (s1[i] == '\0') {
+            return 0;
+        }
     }
-
-    while (s[i] != '\0')
-    {
-        result = result * 10 + (s[i] - '0');
-        i++;
-    }
-
-    return sign * result;
+    return 0;
 }

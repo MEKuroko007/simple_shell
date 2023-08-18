@@ -1,0 +1,182 @@
+/*int non_interactive_mode(char *av[])
+{
+	char *line = NULL;
+	size_t len = 0;
+	char **args;
+	pid_t pid;
+	char *cmd;
+	int status, exitStatus = 0, counter = 1;
+	ssize_t read;
+	struct stat st;
+
+	while ((read = _getline(&line, &len, stdin)) != -1)
+	{
+		if (line[read - 1] == '\n')
+		{
+			line[read - 1] = '\0';
+		}
+		args = _arguments(line);
+		if (!args[0])
+		{ counter++;
+			free_arguments(args);
+			continue; }
+		else if (_strcmp(args[0], "exit") == 0)
+		{
+			exitStatus = exit_shell(args, av, counter, line);
+			break; }
+        else if (_strcmp(args[0], "env") == 0)
+		{
+			exitStatus = _env(args);
+			free_arguments(args);
+			continue; }
+		pid = fork();
+		if (pid < 0)
+		{
+			perror("fork");
+			exit(EXIT_FAILURE); }
+        else if (pid == 0)
+		{
+			cmd = _cmd(args[0]);
+
+			if (cmd)
+			{
+				if (execve(cmd, args, environ) == -1)
+                {
+				perror("execve"); } }
+			else
+			{
+				free_arguments(args);
+				free(cmd);
+				free(line);
+				exit(127); }
+		}
+		else
+		{
+			wait(&status);
+			if (WIFEXITED(status))
+			{
+				exitStatus = WEXITSTATUS(status);
+				if (exitStatus == 127)
+				{
+					char *error_msg;
+
+					error_msg = _not_found(av, counter, args[0]);
+					write(2, error_msg, strlen(error_msg));
+					free(error_msg);
+				} } }
+		free_arguments(args);
+		counter++; }
+	return (exitStatus);
+}*/
+/********************************************************/
+/*
+void interactive_mode(char *av[]) {
+    char *line = NULL;
+    size_t bufsize = BUFFER_SIZE;
+    char **args = NULL;
+    char *cmd = NULL;
+    pid_t pid;
+    int status, exitStatus = 1;
+    int counter = 1;
+
+    signal(SIGINT, handle_sigint);
+    line = malloc(bufsize);
+    if (!line) {
+        perror("malloc");
+        exit(EXIT_FAILURE);
+    }
+    ssize_t lines;
+
+    while (1)
+    {
+        write(STDOUT_FILENO, ":> ", 3);
+        lines = getline(&line, &bufsize, stdin);
+        if (lines == -1) {
+            write(STDOUT_FILENO, "\n", 1);
+            exit(0);
+        }
+        if (line[lines - 1] == '\n') {
+            line[lines - 1] = '\0';
+        }
+
+        if (!line[0]) {
+            continue;
+        }
+        args = _arguments(line);
+        if (strcmp(args[0], "exit") == 0)
+        {
+            exitStatus =  exit_shell(args, av, counter,line);
+            break;
+        }else if (_strcmp(args[0], "env") == 0)
+		{
+			exitStatus = _env(args);
+			continue; }
+        pid = fork();
+
+        if (pid < 0) {
+            perror("fork");
+            exit(EXIT_FAILURE);
+        } else if (pid == 0) {
+            cmd = _cmd(args[0]);
+            if (cmd) {
+                execve(cmd, args, environ);
+                perror("execve");}
+            else {
+                cleanup(args, cmd);
+                free(line);
+                exit(127); }
+        } else {
+            wait(&status);
+            if (WIFEXITED(status)) {
+                exitStatus = WEXITSTATUS(status);
+                if (exitStatus == 127) {
+                    char *error_msg;
+                    error_msg = _not_found(av, counter, args[0]);
+                    write(STDERR_FILENO, error_msg, _strlen(error_msg));
+                    free(error_msg);
+                }
+                // }else if(exitStatus == 2)
+                // {
+                //     write(2,"er",2);
+                // }
+            }
+            free_arguments(args);
+        }
+    }
+    free(line);
+}
+*/
+
+/*
+   char *error_exit_shell(char *av[], char *args[], int counter)
+   {
+   int length;
+   char *error;
+   char *shell;
+
+   length = _strlen(av[0]) + _numlen(counter) + _strlen(args[0]) + 16;
+   error = (char *)malloc(sizeof(char) * (length + 1));
+   if (error == NULL) {
+   return NULL;
+   }
+
+   _strcpy(error, av[0]);
+   _strcat(error, ": ");
+
+   shell = (char *)malloc(sizeof(char) * (_numlen(counter) + 1));
+   if (shell == NULL) {
+   free(error);
+   return NULL;
+   }
+   _itos(counter, shell);
+   _strcat(error, shell);
+   free(shell);
+
+   _strcat(error, ": ");
+   _strcat(error, args[0]);
+   _strcat(error, ": Illegal number: ");
+   _strcat(error, args[1]);
+   _strcat(error, "\n");
+
+   return error;
+   }*/

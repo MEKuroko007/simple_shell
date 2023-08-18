@@ -7,7 +7,6 @@
  */
 int _env(char *args[])
 {
-    // (void)line;
 	int i, j;
 
 	for (i = 0; environ[i]; i++)
@@ -19,40 +18,35 @@ int _env(char *args[])
 		write(STDOUT_FILENO, environ[i], j);
 		write(STDOUT_FILENO, "\n", 1);
 	}
-    // free(args);
-    // free(args);
-    // free(line);
-	// status = 0;
-
+	free_arguments(args);
 	return (0);
 }
-/*
-*_getenv - function to get the value of env variable
-*@name:variable
-*/
-char *_getenv(const char *name) {
-    for (int i = 0; environ[i] != NULL; ++i) {
-        // Duplicate the environment string
-        char *env = strdup(environ[i]);
-        if (env == NULL) {
-            perror("Memory allocation failed");
-            return NULL;
-        }
+/**
+ * _getenv - function to get the value of env variable
+ * @name:variable
+ * Return:value or null
+ */
+// char *_getenv(const char *name)
+// {
+// 	int i = 0;
+// 	char *env;
+// 	char *env_name;
+// 	char *env_value;
 
-        // Split the environment variable into name and value
-        char *env_name = _strtok(env, "=");
-        char *env_value = _strtok(NULL, "=");
-
-        // Check if name matches and return the value
-        if (env_name != NULL && env_value != NULL && strcmp(env_name, name) == 0) {
-            // Free the duplicated string before returning
-            free(env);
-            return env_value;
-        }
-
-        // Free the duplicated string since no match was found
-        free(env);
-    }
-    return NULL;
-}
-
+// 	for (; environ[i] != NULL; ++i)
+// 	{
+// 		env = strdup(environ[i]);
+// 		if (env == NULL)
+// 		{
+// 			perror("Memory allocation failed");
+// 			return (NULL); }
+// 		env_name = _strtok(env, "=");
+// 		env_value = _strtok(NULL, "=");
+// 		if (env_name != NULL && env_value != NULL && strcmp(env_name, name) == 0)
+// 		{
+// 			free(env);
+// 			return (env_value); }
+// 		free(env);
+// 	}
+// 	return (NULL);
+// }

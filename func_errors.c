@@ -17,7 +17,7 @@ char *_not_found(char *av[], int i, char *cmd)
 	error = (char *)malloc(sizeof(char) * (length + 1));
 	if (error == NULL)
 	{
-		return NULL;
+		return (NULL);
 	}
 
 	_strcpy(error, av[0]);
@@ -26,19 +26,18 @@ char *_not_found(char *av[], int i, char *cmd)
 	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
 	if (shell == NULL)
 	{
-		free(error); // Free the error message if shell allocation fails
-		return NULL;
+		free(error);
 	}
 	_itos(i, shell);
 	_strcat(error, shell);
 
-	free(shell); // Free the shell variable once it's no longer needed
+	free(shell);
 
 	_strcat(error, ": ");
 	_strcat(error, cmd);
 	_strcat(error, ": not found\n");
 
-	return error;
+	return (error);
 }
 
 /**
@@ -85,7 +84,7 @@ int _numlen(int n)
 
 	if (n == 0)
 	{
-		return 1;
+		return (1);
 	}
 	else if (n < 0)
 	{
@@ -99,5 +98,5 @@ int _numlen(int n)
 		n /= 10;
 	}
 
-	return length;
+	return (length);
 }

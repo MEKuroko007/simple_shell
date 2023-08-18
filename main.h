@@ -23,7 +23,7 @@ extern char **environ;
 #include <limits.h>
 /**/
 int non_interactive_mode(char *av[]);
-void interactive_mode(char *av[]);
+int interactive_mode(char *av[]);
 void handle_sigint(int sig);
 
 
@@ -61,13 +61,17 @@ int _isdigit(const char *s);
 void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 int _atoi(const char *s);
+int _strncmp(const char *s1, const char *s2, size_t n);
 /**/
 int exit_shell(char *args[], char *av[], int counter, char *line);
 char *error_exit_shell(char *av[], char *args[], int counter);
 int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
-char *_getenv(const char *name);
+char *_getenv(const char *var);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
+
+int run_command(char **args, char *av[], int counter, char *line);
+int execute_command(char **args, char *line, char *av[], int counter);
 #endif /* MAIN_H */

@@ -4,73 +4,38 @@
  * @av:arguments
  * Return: STATUS
  */
+
 int non_interactive_mode(char *av[])
 {
 	char *line = NULL;
 	size_t len = 0;
 	char **args;
-	pid_t pid;
-	char *cmd;
-	int status, exitStatus = 0, counter = 1;
+	int exitStatus = 0, counter = 1;
 	ssize_t read;
-	struct stat st;
 
 	while ((read = _getline(&line, &len, stdin)) != -1)
 	{
 		if (line[read - 1] == '\n')
-		{
 			line[read - 1] = '\0';
-		}
 		args = _arguments(line);
 		if (!args[0])
-		{ counter++;
+		{
+			counter++;
 			free_arguments(args);
-			continue; }
-		else if (_strcmp(args[0], "exit") == 0)
+			continue;
+		}
+		if (_strcmp(args[0], "exit") == 0)
 		{
 			exitStatus = exit_shell(args, av, counter, line);
-			break; }
-        else if (_strcmp(args[0], "env") == 0)
+			break;
+		} else if (_strcmp(args[0], "env") == 0)
 		{
 			exitStatus = _env(args);
-			free_arguments(args);
-			continue; }
-		pid = fork();
-		if (pid < 0)
-		{
-			perror("fork");
-			exit(EXIT_FAILURE); }
-        else if (pid == 0)
-		{
-			cmd = _cmd(args[0]);
-
-			if (cmd)
-			{
-				if (execve(cmd, args, environ) == -1)
-                {
-				perror("execve"); } }
-			else
-			{
-				free_arguments(args);
-				free(cmd);
-				free(line);
-				exit(127); }
+			continue;
 		}
-		else
-		{
-			wait(&status);
-			if (WIFEXITED(status))
-			{
-				exitStatus = WEXITSTATUS(status);
-				if (exitStatus == 127)
-				{
-					char *error_msg;
-
-					error_msg = _not_found(av, counter, args[0]);
-					write(2, error_msg, strlen(error_msg));
-					free(error_msg);
-				} } }
+		exitStatus = execute_command(args, line, av, counter);
 		free_arguments(args);
-		counter++; }
+		counter++;
+	}
 	return (exitStatus);
 }

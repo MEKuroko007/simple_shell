@@ -16,7 +16,7 @@ int non_interactive_mode(char *av[])
 	int counter = 1;
 	struct stat st;
 
-	while ((read = getline(&line, &len, stdin)) != -1)
+	while ((read = _getline(&line, &len, stdin)) != -1)
 	{
 		if (line[read - 1] == '\n')
 		{

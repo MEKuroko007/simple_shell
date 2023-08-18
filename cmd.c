@@ -41,7 +41,7 @@ char **_arguments(char *line)
         exit(EXIT_FAILURE);
     }
 
-    token = strtok(line, " \t\n");
+    token = _strtok(line, " \t\n");
     while (token)
     {
         args[i] = _strdup(token);
@@ -57,7 +57,7 @@ char **_arguments(char *line)
             exit(EXIT_FAILURE);
         }
         i++;
-        token = strtok(NULL, " \t\n");
+        token = _strtok(NULL, " \t\n");
     }
     args[i] = NULL;
     return args;
@@ -77,7 +77,7 @@ char *search_in_path(char *command)
         return (NULL);
     if (path[0] == '\0')
         return (NULL);
-    token = strtok(path, ":");
+    token = _strtok(path, ":");
     while (token)
     {
         cmd = malloc(strlen(token) + strlen(command) + 2);
@@ -92,7 +92,7 @@ char *search_in_path(char *command)
             return cmd;
         }
         free(cmd);  // Free memory allocated for cmd
-        token = strtok(NULL, ":");
+        token = _strtok(NULL, ":");
     }
     return NULL;
 }

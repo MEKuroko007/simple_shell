@@ -1,8 +1,8 @@
 #include "main.h"
 /**
  * interactive_mode - function to handle input in interactive mode
+ * @av:argv
  */
-
 void interactive_mode(char *av[]) {
     char *line = NULL;
     size_t bufsize = BUFFER_SIZE;
@@ -12,23 +12,20 @@ void interactive_mode(char *av[]) {
     int status, exitStatus = 1;
     int counter = 1;
 
-    signal(SIGINT, handle_sigint); // Set up signal handler
-
+    signal(SIGINT, handle_sigint);
     line = malloc(bufsize);
     if (!line) {
         perror("malloc");
         exit(EXIT_FAILURE);
     }
-
     ssize_t lines;
+
     while (1)
     {
         write(STDOUT_FILENO, ":> ", 3);
         lines = getline(&line, &bufsize, stdin);
         if (lines == -1) {
             write(STDOUT_FILENO, "\n", 1);
-            // free(line);
-            // free(args);
             exit(0);
         }
         if (line[lines - 1] == '\n') {
@@ -42,14 +39,10 @@ void interactive_mode(char *av[]) {
         if (strcmp(args[0], "exit") == 0)
         {
             exitStatus = exit_shell(args, av, counter,line);
-            // free_arguments(args);
-            // free(line);
-            // free(cmd);
             break;
         }else if (_strcmp(args[0], "env") == 0)
 		{
 			exitStatus = _env(args);
-            // free(line);
             free_arguments(args);
 			continue; }
         pid = fork();

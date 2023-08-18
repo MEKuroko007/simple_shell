@@ -67,6 +67,7 @@ char *error_exit_shell(char *av[], char *args[], int counter);
 int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
+char *_getenv(const char *name);
 ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 #endif /* MAIN_H */

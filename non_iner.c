@@ -13,7 +13,7 @@ int non_interactive_mode(char *av[])
 	int exitStatus = 0, counter = 1;
 	ssize_t read;
 
-	while ((read = _getline(&line, &len, stdin)) != -1)
+	while ((read = getline(&line, &len, stdin)) != -1)
 	{
 		if (line[read - 1] == '\n')
 			line[read - 1] = '\0';
@@ -37,5 +37,6 @@ int non_interactive_mode(char *av[])
 		free_arguments(args);
 		counter++;
 	}
+	free(line);
 	return (exitStatus);
 }

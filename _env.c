@@ -21,32 +21,3 @@ int _env(char *args[])
 	free_arguments(args);
 	return (0);
 }
-/**
- * _getenv - function to get the value of env variable
- * @name:variable
- * Return:value or null
- */
-// char *_getenv(const char *name)
-// {
-// 	int i = 0;
-// 	char *env;
-// 	char *env_name;
-// 	char *env_value;
-
-// 	for (; environ[i] != NULL; ++i)
-// 	{
-// 		env = strdup(environ[i]);
-// 		if (env == NULL)
-// 		{
-// 			perror("Memory allocation failed");
-// 			return (NULL); }
-// 		env_name = _strtok(env, "=");
-// 		env_value = _strtok(NULL, "=");
-// 		if (env_name != NULL && env_value != NULL && strcmp(env_name, name) == 0)
-// 		{
-// 			free(env);
-// 			return (env_value); }
-// 		free(env);
-// 	}
-// 	return (NULL);
-// }

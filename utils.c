@@ -28,13 +28,16 @@ int is_valid_integer(const char *str)
  */
 char *_getenv(const char *var)
 {
-    size_t var_len = _strlen(var);
-    for (char **env = environ; *env; ++env)
+	size_t var_len;
+	char **env;
+
+	var_len = _strlen(var);
+	for (env = environ; *env; ++env)
 	{
-        if (_strncmp(*env, var, var_len) == 0 && (*env)[var_len] == '=')
+		if (_strncmp(*env, var, var_len) == 0 && (*env)[var_len] == '=')
 		{
-            return &((*env)[var_len + 1]);
-        }
-    }
-    return (NULL);
+			return (&((*env)[var_len + 1]));
+		}
+	}
+	return (NULL);
 }

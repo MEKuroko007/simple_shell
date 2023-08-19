@@ -2,16 +2,18 @@
 /**
  * _cmd - function to get command
  * @command:command
+ * Return:cmd or null
  */
 char *_cmd(char *command)
 {
 	struct stat st;
+	char *path;
 
 	if (command[0] == '/' || command[0] == '.')
 	{
 		if (stat(command, &st) == 0 && S_ISREG(st.st_mode) && (st.st_mode & S_IXUSR))
 		{
-			return _strdup(command);
+			return (_strdup(command));
 		}
 		else
 		{
@@ -20,11 +22,13 @@ char *_cmd(char *command)
 	}
 	else
 	{
-		char *path = search_in_path(command);
-		if (path) {
+		path = search_in_path(command);
+		if (path)
+		{
 			return (path);
 		}
-		else {
+		else
+		{
 			return (NULL);
 		}
 	}
@@ -67,11 +71,11 @@ char **_arguments(char *line)
 		token = _strtok(NULL, " \t\n");
 	}
 	args[i] = NULL;
-	return args;
+	return (args);
 }
 /**
  * search_in_path - function to get arguments
- * @line:line
+ * @command:line
  * Return:arguments
  */
 char *search_in_path(char *command)
@@ -90,39 +94,35 @@ char *search_in_path(char *command)
 	while (token)
 	{
 		cmd = malloc(strlen(token) + strlen(command) + 2);
-		if (!cmd) {
+		if (!cmd)
+		{
 			perror("malloc");
 			exit(EXIT_FAILURE);
 		}
 		strcpy(cmd, token);
 		strcat(cmd, "/");
 		strcat(cmd, command);
-		if (stat(cmd, &st) == 0) {
-			return cmd;
+		if (stat(cmd, &st) == 0)
+		{
+			return (cmd);
 		}
 		free(cmd);
 		token = _strtok(NULL, ":");
 	}
 	return (NULL);
 }
-
+/**
+ * free_args - free memory
+ * @args:arguments
+ * Return:1 or 0
+ */
 void free_args(char **args)
 {
 	int i = 0;
-	for (; args[i] != NULL; i++) {
+
+	for (; args[i] != NULL; i++)
+	{
 		free(args[i]);
 	}
 	free(args);
-}
-int is_empty(const char *str)
-{
-	while (*str != '\0')
-	{
-		if (!isspace((unsigned char)*str))
-		{
-			return (0);
-		}
-		str++;
-	}
-	return (1);
 }

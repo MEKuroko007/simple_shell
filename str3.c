@@ -71,7 +71,7 @@ int _atoi(const char *s)
 	return (sign * result);
 }
 /**
- * _strncmp - compares two strings to a specified number 
+ * _strncmp - compares two strings to a specified number
  * @s1:first string
  * @s2:second string
  * @n:size
@@ -79,13 +79,14 @@ int _atoi(const char *s)
  */
 int _strncmp(const char *s1, const char *s2, size_t n)
 {
-    for (size_t i = 0; i < n; ++i) {
-        if (s1[i] != s2[i]) {
-            return (unsigned char)s1[i] - (unsigned char)s2[i];
-        }
-        if (s1[i] == '\0') {
-            return 0;
-        }
-    }
-    return 0;
+	size_t i = 0;
+
+	for (; i < n; ++i)
+	{
+		if (s1[i] != s2[i])
+			return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+		if (s1[i] == '\0')
+			return (0);
+	}
+	return (0);
 }

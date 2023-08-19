@@ -32,8 +32,7 @@ int interactive_mode(char *av[])
 		{
 			counter++;
 			free_arguments(args);
-			continue;
-		}
+			continue; }
 		if (_strcmp(args[0], "exit") == 0)
 		{
 			exitStatus = exit_shell(args, av, counter, line);
@@ -41,11 +40,8 @@ int interactive_mode(char *av[])
 		} else if (_strcmp(args[0], "env") == 0)
 		{
 			exitStatus = _env(args);
-			continue;
-		}
+			continue; }
 		exitStatus = execute_command(args, line, av, counter);
 		free_arguments(args);
 		counter++; }
-	return (exitStatus);
-
-}
+	return (exitStatus); }

@@ -1,4 +1,43 @@
 #include "main.h"
+/**
+ * _exit_error - error message for exit
+ * @counter:counter
+ * @av:arguments
+ * @args:commands
+ * Return:Error message
+ */
+ /*******************************/
+void _exit_error(char *av[], int counter, char *args[])
+{
+    int i = 0;
+    char count_buffer[12];
+    char *countMsg;
+    char *illegalMsg;
+    char *message;
+
+    _itos(counter, count_buffer);
+
+    message = av[0];
+    write(2, message, strlen(message));
+
+    write(2, ": ", 2);
+
+    countMsg = count_buffer;
+    write(2, countMsg, strlen(countMsg));
+
+    write(2, ": ", 2);
+
+    write(2, args[0], strlen(args[0]));
+
+    write(2, ": ", 2);
+
+    illegalMsg = "Illegal number: ";
+    write(2, illegalMsg, strlen(illegalMsg));
+
+    write(2, args[1], strlen(args[1]));
+
+    write(2, "\n", 1);
+}
 
 /**
  * _not_found - generic error message for command not found
@@ -7,38 +46,6 @@
  * @cmd: command
  * Return: Error message
  */
-// char *_not_found(char *av[], int i, char *cmd)
-// {
-// 	int length;
-// 	char *error;
-// 	char *shell;
-
-// 	length = _strlen(av[0]) + _numlen(i) + _strlen(cmd) + 16;
-// 	error = (char *)malloc(sizeof(char) * (length + 1));
-// 	if (error == NULL)
-// 	{
-// 		return (NULL);
-// 	}
-
-// 	_strcpy(error, av[0]);
-// 	_strcat(error, ": ");
-
-// 	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
-// 	if (shell == NULL)
-// 	{
-// 		free(error);
-// 	}
-// 	_itos(i, shell);
-// 	_strcat(error, shell);
-
-// 	free(shell);
-
-// 	_strcat(error, ": ");
-// 	_strcat(error, cmd);
-// 	_strcat(error, ": not found\n");
-
-// 	return (error);
-// }
 void _exit_127(char *av[], int counter, char *args[])
 {
     int i = 0;

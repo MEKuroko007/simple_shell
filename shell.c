@@ -11,8 +11,8 @@ int main(__attribute__((unused))int ac, char **av)
 
 	bool isPiped = !isatty(STDIN_FILENO);
 
-	// if (av[1] != NULL)
-	// 	readFIle(av);
+	if (av[1] != NULL)
+		return handleCommandFromFile(av[1],av);
 	signal(SIGINT, handle_sigint);
 
 	if (isPiped)

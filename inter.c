@@ -46,7 +46,7 @@ int interactive_mode(char *av[])
 		cmd = _cmd(args[0]);
 		if (cmd)
 		{
-			exitStatus = execute_command(args, line, av, counter,cmd);
+			exitStatus = execute_cmd(args, line, av, counter,cmd);
 		}else {
 			_exit_127(av, counter, args);
 			free(cmd);

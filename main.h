@@ -29,16 +29,16 @@ void handle_sigint(int sig);
 
 
 /**/
-char *_not_found(char *av[], int i, char *cmd);
+/*char *_not_found(char *av[], int i, char *cmd);*/
 int _numlen(int n);
 void _itos(int n, char *str);
 /**/
 
-/***/
+/********* cmd ***********/
 char *_cmd(char *command);
 char **_arguments(char *buf);
 char *search_in_path(char *command);
-/**/
+/******* func *******/
 int is_empty(const char *str);
 void free_arguments(char **args);
 void handle_sigint(int sig);
@@ -46,45 +46,47 @@ void cleanup(char **args, char *cmd);
 
 
 
-/* str1*/
+/*********** str1 ***********/
 char *_strcat(char *dest, const char *src);
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
 char *_strchr(char *s, char c);
 int _strspn(char *s, char *accept);
-/* str2 */
+/********** str2 *************/
 char *_strdup(const char *s);
 int _strlen(const char *s);
 int cmp_chars(char str[], const char *delim);
 char *_strtok(char str[], const char *delim);
 int _isdigit(const char *s);
-/* str3 */
+/********** str3 **********/
 void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 int _atoi(const char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);
 size_t _strcspn(const char *str, const char *reject);
-/**/
+/********handle exit*********/
 int exit_shell(char *args[], char *av[], int counter, char *line);
-void _exit_error(char *av[], int counter, char *args[]);
 int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
 char *_getenv(const char *var);
-// char *_getenv(char *name);
 // ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
-
+/***********execution**************/
 int run_command(char **args, char *av[], int counter, char *line);
-int execute_command(char **args, char *line, char *av[], int counter, char *cmd);
+int execute_cmd(char **args, char *line, char *av[], int counter, char *cmd);
 
-/****************/
+/********error********/
+void _exit_error(char *av[], int counter, char *args[]);
 void _exit_127(char *av[], int counter, char *args[]);
+void _unknown(char *av[], int counter);
 
 
 
 
 
-/***********************/
-int readFIle(char **av);
+/***********File as input***********/
+int handleCommandFromFile(char *filename, char **av);
+FILE *openFileAsStream(const char *filename, const char *mode);
+
 #endif /* MAIN_H */

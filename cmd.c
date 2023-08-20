@@ -52,7 +52,7 @@ char **_arguments(char *line)
 		exit(EXIT_FAILURE);
 	}
 
-	token = _strtok(line, " \t\n");
+	token = strtok(line, "\n\t\r\a ");
 	while (token)
 	{
 		args[i] = _strdup(token);
@@ -68,7 +68,7 @@ char **_arguments(char *line)
 			exit(EXIT_FAILURE);
 		}
 		i++;
-		token = _strtok(NULL, " \t\n");
+		token = strtok(NULL, "\n\t\r\a ");
 	}
 	args[i] = NULL;
 	return (args);
@@ -80,36 +80,45 @@ char **_arguments(char *line)
  */
 char *search_in_path(char *command)
 {
-	char *path;
+    char *path;
+	char *path_copy;
 	char *token;
-	char *cmd;
-	struct stat st;
+    struct stat st;
 
 	path = _getenv("PATH");
-	if (path == NULL)
-		return (NULL);
-	if (path[0] == '\0')
-		return (NULL);
-	token = _strtok(path, ":");
-	while (token)
-	{
-		cmd = malloc(strlen(token) + strlen(command) + 2);
-		if (!cmd)
-		{
-			perror("malloc");
-			exit(EXIT_FAILURE);
-		}
-		strcpy(cmd, token);
-		strcat(cmd, "/");
-		strcat(cmd, command);
-		if (stat(cmd, &st) == 0)
-		{
-			return (cmd);
-		}
-		free(cmd);
-		token = _strtok(NULL, ":");
-	}
-	return (NULL);
+    if (!path) {
+        return (NULL);
+    }
+
+    path_copy = _strdup(path);
+    if (!path_copy) {
+        perror("strdup");
+        exit(EXIT_FAILURE);
+    }
+
+    token = _strtok(path_copy, ":");
+    while (token) {
+        char *cmd = malloc(strlen(token) + _strlen(command) + 2);
+        if (!cmd) {
+            perror("malloc");
+            exit(EXIT_FAILURE);
+        }
+        _strcpy(cmd, token);
+        _strcat(cmd, "/");
+        _strcat(cmd, command);
+
+        cmd[_strcspn(cmd, "\r\n")] = '\0';
+
+        if (stat(cmd, &st) == 0) {
+            free(path_copy);
+            return cmd;
+        }
+        free(cmd);
+        token = _strtok(NULL, ":");
+    }
+
+    free(path_copy);
+    return (NULL);
 }
 /**
  * free_args - free memory

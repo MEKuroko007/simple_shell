@@ -21,6 +21,7 @@ extern char **environ;
 #include <signal.h>
 #include <ctype.h>
 #include <limits.h>
+#include <fcntl.h>
 /**/
 int non_interactive_mode(char *av[]);
 int interactive_mode(char *av[]);
@@ -62,6 +63,7 @@ void rev_string(char *s);
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
 int _atoi(const char *s);
 int _strncmp(const char *s1, const char *s2, size_t n);
+size_t _strcspn(const char *str, const char *reject);
 /**/
 int exit_shell(char *args[], char *av[], int counter, char *line);
 void _exit_error(char *av[], int counter, char *args[]);
@@ -69,9 +71,20 @@ int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
 char *_getenv(const char *var);
+// char *_getenv(char *name);
 // ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 
 int run_command(char **args, char *av[], int counter, char *line);
-int execute_command(char **args, char *line, char *av[], int counter);
+int execute_command(char **args, char *line, char *av[], int counter, char *cmd);
+
+/****************/
+void _exit_127(char *av[], int counter, char *args[]);
+
+
+
+
+
+/***********************/
+int readFIle(char **av);
 #endif /* MAIN_H */

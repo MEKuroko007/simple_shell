@@ -5,18 +5,20 @@
  * @av:arguments
  * Return:exitCode
  */
-int main(int ac, char *av[])
+int main(__attribute__((unused))int ac, char **av)
 {
 	int exitCode = 0;
 
 	bool isPiped = !isatty(STDIN_FILENO);
-	(void)ac;
 
+	// if (av[1] != NULL)
+	// 	readFIle(av);
 	signal(SIGINT, handle_sigint);
 
 	if (isPiped)
 	{
 		exitCode = non_interactive_mode(av);
+		// printf("code      ----%d\n",exitCode);
 		return (exitCode);
 	}
 	else

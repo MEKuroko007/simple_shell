@@ -7,39 +7,67 @@
  * @cmd: command
  * Return: Error message
  */
-char *_not_found(char *av[], int i, char *cmd)
+// char *_not_found(char *av[], int i, char *cmd)
+// {
+// 	int length;
+// 	char *error;
+// 	char *shell;
+
+// 	length = _strlen(av[0]) + _numlen(i) + _strlen(cmd) + 16;
+// 	error = (char *)malloc(sizeof(char) * (length + 1));
+// 	if (error == NULL)
+// 	{
+// 		return (NULL);
+// 	}
+
+// 	_strcpy(error, av[0]);
+// 	_strcat(error, ": ");
+
+// 	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
+// 	if (shell == NULL)
+// 	{
+// 		free(error);
+// 	}
+// 	_itos(i, shell);
+// 	_strcat(error, shell);
+
+// 	free(shell);
+
+// 	_strcat(error, ": ");
+// 	_strcat(error, cmd);
+// 	_strcat(error, ": not found\n");
+
+// 	return (error);
+// }
+void _exit_127(char *av[], int counter, char *args[])
 {
-	int length;
-	char *error;
-	char *shell;
+    int i = 0;
+    char count_buffer[12];
+    char *countMsg;
+    char *illegalMsg;
+    char *message;
 
-	length = _strlen(av[0]) + _numlen(i) + _strlen(cmd) + 16;
-	error = (char *)malloc(sizeof(char) * (length + 1));
-	if (error == NULL)
-	{
-		return (NULL);
-	}
+    _itos(counter, count_buffer);
 
-	_strcpy(error, av[0]);
-	_strcat(error, ": ");
+    message = av[0];
+    write(2, message, strlen(message));
 
-	shell = (char *)malloc(sizeof(char) * (_numlen(i) + 1));
-	if (shell == NULL)
-	{
-		free(error);
-	}
-	_itos(i, shell);
-	_strcat(error, shell);
+    write(2, ": ", 2);
 
-	free(shell);
+    countMsg = count_buffer;
+    write(2, countMsg, strlen(countMsg));
 
-	_strcat(error, ": ");
-	_strcat(error, cmd);
-	_strcat(error, ": not found\n");
+    write(2, ": ", 2);
 
-	return (error);
+    write(2, args[0], strlen(args[0]));
+
+    write(2, ": ", 2);
+
+    illegalMsg = "not found";
+    write(2, illegalMsg, strlen(illegalMsg));
+
+    write(2, "\n", 1);
 }
-
 /**
  * _itos - function converts int to string.
  * @n: int number

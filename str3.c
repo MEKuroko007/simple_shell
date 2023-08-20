@@ -90,3 +90,20 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+size_t _strcspn(const char *str, const char *reject)
+{
+    const char *s = str;
+    while (*s) {
+        const char *r = reject;
+        while (*r) {
+            if (*s == *r) {
+                return s - str; // Return the index where the match is found
+            }
+            r++;
+        }
+        s++;
+    }
+    return s - str; // If no match is found, return the length of the string
+}
+
+

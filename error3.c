@@ -7,9 +7,6 @@
  * Return:Error message
  */
  /*******************************/
- 
-#include <unistd.h> // Include the necessary header for the write function
-
 void _exit_error(char *av[], int counter, char *args[])
 {
     int i = 0;

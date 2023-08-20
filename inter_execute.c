@@ -37,13 +37,13 @@ int run_command(char **args, char *av[], int counter, char *line)
 		if (WIFEXITED(status))
 		{
 			exitStatus = WEXITSTATUS(status);
-			if (exitStatus == 127)
-			{
-				char *error_msg;
+			// if (exitStatus == 127)
+			// {
+			// 	char *error_msg;
 
-				error_msg = _not_found(av, counter, args[0]);
-				write(STDERR_FILENO, error_msg, _strlen(error_msg));
-				free(error_msg); }
+			// 	error_msg = _not_found(av, counter, args[0]);
+			// 	write(STDERR_FILENO, error_msg, _strlen(error_msg));
+			// 	free(error_msg); }
 		}
 		free_arguments(args);
 	}

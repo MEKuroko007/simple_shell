@@ -66,6 +66,7 @@
 				} } }
 		free_arguments(args);
 		counter++; }
+        *free(line);*
 	return (exitStatus);
 }*/
 /********************************************************/

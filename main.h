@@ -70,7 +70,6 @@ int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
 char *_getenv(const char *var);
-// ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 /***********execution**************/
 int run_command(char **args, char *av[], int counter, char *line);
@@ -86,7 +85,7 @@ void _unknown(char *av[], int counter);
 
 
 /***********File as input***********/
-int handleCommandFromFile(char *filename, char **av);
-FILE *openFileAsStream(const char *filename, const char *mode);
+int handleCommandFromFile(const char *filename, char **av);
+int exeCommand(char *line, char **av, int counter);
 
 #endif /* MAIN_H */

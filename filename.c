@@ -1,9 +1,9 @@
 #include "main.h"
 /**
-* _unknown - function to print an error
-* @av:arguments
-* @counter:counter
-*/
+ * _unknown - function to print an error
+ * @av:arguments
+ * @counter:counter
+ */
 void _unknown(char *av[], int counter)
 {
 	char count_buffer[12];
@@ -36,78 +36,92 @@ void _unknown(char *av[], int counter)
 	write(2, "\n", 1);
 }
 /**
-* openFileAsStream - function to read the content of a file
-* @filename:name of file
-* @mode:mode
-* Return:the content
-*/
-
-FILE *openFileAsStream(const char *filename, const char *mode)
+ * exeCommand - execute commands
+ * @line:cmd
+ * @av:arguments
+ * @counter:counter
+ * Return:exit code
+ */
+int exeCommand(char *line, char **av, int counter)
 {
-	int fd;
-	FILE *file_stream;
+	char **args;
+	int exitStatus = 0;
+	char *cmd;
+
+	args = _arguments(line);
+
+	if (!args[0])
+	{
+		counter++;
+		free_arguments(args);
+		return (exitStatus); }
+	if (strcmp(args[0], "exit") == 0)
+	{
+		if (exitStatus == 2)
+		{
+			free_arguments(args);
+			return (2); }
+		exitStatus = exit_shell(args, av, counter, line);
+	} else if (strcmp(args[0], "env") == 0)
+	{
+		exitStatus = _env(args);
+	} else
+	{
+		cmd = _cmd(args[0]);
+		if (cmd)
+		{
+			exitStatus = execute_cmd(args, line, av, counter, cmd);
+			free(cmd);
+		} else
+		{
+			_exit_127(av, counter, args);
+			exitStatus = 127;
+		}
+	}
+
+	free_arguments(args);
+	counter++;
+	return (exitStatus);
+}
+/**
+ * handleCommandFromFile - function to read the content of a file
+ * @filename:name of file
+ * @av:arguments
+ * Return:exit code
+ */
+int handleCommandFromFile(const char *filename, char **av)
+{
+	int fd, counter = 0;
+	char buff[BUFFER_SIZE];
+	ssize_t readBytes;
+	ssize_t i = 0, j = 0;
+	int exitStatus = 0;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 	{
-		return (NULL);
+		_unknown(av, counter);
+		return (2);
 	}
-
-	file_stream = fdopen(fd, mode);
-	if (file_stream == NULL)
+	while ((readBytes = read(fd, buff, sizeof(buff))) > 0)
 	{
-		close(fd);
-		return (NULL);
-	}
-
-	return (file_stream);
-}
-/**
-* handleCommandFromFile - function to read the content of a file
-* @filename:name of file
-* @av:arguments
-* Return:exit code
-*/
-int handleCommandFromFile(char *filename, char **av)
-{	char *line = NULL, *cmd, **args;
-	size_t line_size = 0;
-	int exitStatus = 0, counter = 0;
-	FILE *file_stream;
-
-	file_stream = openFileAsStream(filename, "r");
-	if (file_stream == NULL)
-	{	_unknown(av, counter);
-		return (2); }
-	while (getline(&line, &line_size, file_stream) != -1)
-	{	line[strcspn(line, "\n")] = '\0';
-		args = _arguments(line);
-		if (!args[0])
-		{	counter++;
-			free_arguments(args);
-			continue; }
-		if (_strcmp(args[0], "exit") == 0)
+		for (i = 0; i < readBytes; i++)
 		{
-			if (exitStatus == 2)
-			{	free_arguments(args);
-				fclose(file_stream);
-				return (2); }
-			exitStatus = exit_shell(args, av, counter, line);
-			break;
-		} else if (_strcmp(args[0], "env") == 0)
-		{	exitStatus = _env(args);
-			free_arguments(args);
-			continue; }
-		cmd = _cmd(args[0]);
-		if (cmd)
-		{	exitStatus = execute_cmd(args, line, av, counter, cmd);
-			free(cmd);
-		} else
-		{	_exit_127(av, counter, args);
-			free_arguments(args);
-			fclose(file_stream);
-			return (127); }
-		free_arguments(args);
-		counter++; }
-	free(line);
-	fclose(file_stream);
-	return (exitStatus); }
+			if (buff[i] == '\n')
+			{
+				buff[j] = '\0';
+				if (j > 0)
+					exitStatus = exeCommand(buff, av, counter);
+				j = 0;
+			} else
+			{
+				buff[j++] = buff[i];
+			}
+		}
+		counter++;
+
+	}
+	close(fd);
+	return (exitStatus);
+}
+

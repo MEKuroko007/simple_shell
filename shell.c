@@ -18,7 +18,6 @@ int main(__attribute__((unused))int ac, char **av)
 	if (isPiped)
 	{
 		exitCode = non_interactive_mode(av);
-		// printf("code      ----%d\n",exitCode);
 		return (exitCode);
 	}
 	else

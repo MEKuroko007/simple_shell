@@ -11,7 +11,7 @@ int non_interactive_mode(char *av[])
 	int exitStatus = 0, counter = 1;
 	ssize_t read;
 
-	while ((read = getline(&line, &len, stdin)) != -1)
+	while ((read = _getline(&line, &len, stdin)) != -1)
 	{
 		if (line[read - 1] == '\n')
 			line[read - 1] = '\0';
@@ -26,6 +26,7 @@ int non_interactive_mode(char *av[])
 			{	free_arguments(args);
 				free(line);
 				return (2); }
+			free(line);
 			exitStatus = exit_shell(args, av, counter, line);
 			break;
 		} else if (_strcmp(args[0], "env") == 0)
@@ -44,7 +45,7 @@ int non_interactive_mode(char *av[])
 		free(cmd);
 		free_arguments(args);
 		counter++; }
-	free(line);
+	/*free(line); for getline*/
 	return (exitStatus);
 }
 /**
@@ -59,7 +60,10 @@ int non_interactive_mode(char *av[])
 int execute_cmd(char **args, char *line, char *av[], int counter, char *cmd)
 {
 	pid_t pid;
-	int status, exitStatus = 0;
+	int status; /*exitStatus = 0;*/
+	(void)line;
+	(void)av;
+	(void)counter;
 
 	pid = fork();
 	if (pid < 0)

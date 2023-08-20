@@ -97,13 +97,13 @@ size_t _strcspn(const char *str, const char *reject)
         const char *r = reject;
         while (*r) {
             if (*s == *r) {
-                return s - str; // Return the index where the match is found
+                return s - str;
             }
             r++;
         }
         s++;
     }
-    return s - str; // If no match is found, return the length of the string
+    return s - str;
 }
 
 

@@ -7,11 +7,13 @@
  * @line: The input line.
  * Return: The exit status of the command.
  */
-int run_command(char **args, char *av[], int counter, char *line)
+int run_command(char **args, char **av, int counter, char *line)
 {
 	pid_t pid;
 	char *cmd = NULL;
 	int status, exitStatus = 1;
+	(void)counter;
+	(void)av;
 
 	pid = fork();
 
@@ -37,13 +39,6 @@ int run_command(char **args, char *av[], int counter, char *line)
 		if (WIFEXITED(status))
 		{
 			exitStatus = WEXITSTATUS(status);
-			// if (exitStatus == 127)
-			// {
-			// 	char *error_msg;
-
-			// 	error_msg = _not_found(av, counter, args[0]);
-			// 	write(STDERR_FILENO, error_msg, _strlen(error_msg));
-			// 	free(error_msg); }
 		}
 		free_arguments(args);
 	}

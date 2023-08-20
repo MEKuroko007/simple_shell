@@ -104,27 +104,3 @@ int _strspn(char *s, char *accept)
 	}
 	return (i);
 }
-// /**
-//  * _putchar - function that writes the character to stdout
-//  * @c: The character to print
-//  * Return: character to standard output
-//  */
-// int _putchar(char c)
-// {
-// 	return (write(1, &c, 1));
-// }
-// /**
-//  * _puts - function that prints a string
-//  * @str: pointer to string
-//  * Return: void
-//  */
-// void _puts(char *str)
-// {
-// 	int i;
-
-// 	for (i = 0; str[i] != '\0'; i++)
-// 	{
-// 		_putchar(str[i]);
-// 	}
-// 	_putchar('\n');
-// }

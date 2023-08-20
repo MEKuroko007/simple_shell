@@ -1,41 +1,5 @@
 #include "main.h"
 /**
- * _unknown - function to print an error
- * @av:arguments
- * @counter:counter
- */
-void _unknown(char *av[], int counter)
-{
-	char count_buffer[12];
-	char *countMsg;
-	char *file_Msg;
-	char *message;
-	char *Msg;
-
-	_itos(counter, count_buffer);
-
-	message = av[0];
-	write(2, message, strlen(message));
-
-	write(2, ": ", 2);
-
-	countMsg = count_buffer;
-	write(2, countMsg, strlen(countMsg));
-
-	write(2, ": ", 2);
-
-	Msg = "cannot open ";
-	write(2, Msg, strlen(Msg));
-	write(2, av[1], strlen(av[1]));
-
-	write(2, ": ", 2);
-
-	file_Msg = "No such file";
-	write(2, file_Msg, strlen(file_Msg));
-
-	write(2, "\n", 1);
-}
-/**
  * exeCommand - execute commands
  * @line:cmd
  * @av:arguments

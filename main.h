@@ -82,7 +82,7 @@ void _unknown(char *av[], int counter);
 
 
 
-
+ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 
 /***********File as input***********/
 int handleCommandFromFile(const char *filename, char **av);

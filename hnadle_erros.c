@@ -9,7 +9,6 @@
  /*******************************/
 void _exit_error(char *av[], int counter, char *args[])
 {
-    int i = 0;
     char count_buffer[12];
     char *countMsg;
     char *illegalMsg;
@@ -48,7 +47,6 @@ void _exit_error(char *av[], int counter, char *args[])
  */
 void _exit_127(char *av[], int counter, char *args[])
 {
-    int i = 0;
     char count_buffer[12];
     char *countMsg;
     char *illegalMsg;
@@ -74,6 +72,42 @@ void _exit_127(char *av[], int counter, char *args[])
     write(2, illegalMsg, strlen(illegalMsg));
 
     write(2, "\n", 1);
+}
+/**
+ * _unknown - function to print an error
+ * @av:arguments
+ * @counter:counter
+ */
+void _unknown(char *av[], int counter)
+{
+	char count_buffer[12];
+	char *countMsg;
+	char *file_Msg;
+	char *message;
+	char *Msg;
+
+	_itos(counter, count_buffer);
+
+	message = av[0];
+	write(2, message, strlen(message));
+
+	write(2, ": ", 2);
+
+	countMsg = count_buffer;
+	write(2, countMsg, strlen(countMsg));
+
+	write(2, ": ", 2);
+
+	Msg = "cannot open ";
+	write(2, Msg, strlen(Msg));
+	write(2, av[1], strlen(av[1]));
+
+	write(2, ": ", 2);
+
+	file_Msg = "No such file";
+	write(2, file_Msg, strlen(file_Msg));
+
+	write(2, "\n", 1);
 }
 /**
  * _itos - function converts int to string.

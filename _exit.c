@@ -11,6 +11,7 @@ int exit_shell(char *args[], char *av[], int counter, char *line)
 {
 	int exitStatus;
 	int str_len;
+	(void)line;
 
 	if (args[1] != NULL)
 	{
@@ -22,18 +23,18 @@ int exit_shell(char *args[], char *av[], int counter, char *line)
 			 _exit_error(av, counter, args);
 			exitStatus = 2;
 			free_arguments(args);
-			// free(line);
+		
 			return (2);
 		} else if (is_valid_integer(args[1]) && _atoi(args[1]) < 0)
 		{
 			 _exit_error(av, counter, args);
 			exitStatus = 2;
 			free_arguments(args);
-			// free(line);
+	
 			return (2); }
 		free_arguments(args);
-		// free(line);
+
 		return (exitStatus % 256); }
 	free_arguments(args);
-	// free(line);
+	/*free(line);*/
 	return (0); }

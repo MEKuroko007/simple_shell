@@ -9,33 +9,33 @@
  /*******************************/
 void _exit_error(char *av[], int counter, char *args[])
 {
-    char count_buffer[12];
-    char *countMsg;
-    char *illegalMsg;
-    char *message;
+	char count_buffer[12];
+	char *countMsg;
+	char *illegalMsg;
+	char *message;
 
-    _itos(counter, count_buffer);
+	_itos(counter, count_buffer);
 
-    message = av[0];
-    write(2, message, strlen(message));
+	message = av[0];
+	write(2, message, strlen(message));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    countMsg = count_buffer;
-    write(2, countMsg, strlen(countMsg));
+	countMsg = count_buffer;
+	write(2, countMsg, strlen(countMsg));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    write(2, args[0], strlen(args[0]));
+	write(2, args[0], strlen(args[0]));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    illegalMsg = "Illegal number: ";
-    write(2, illegalMsg, strlen(illegalMsg));
+	illegalMsg = "Illegal number: ";
+	write(2, illegalMsg, strlen(illegalMsg));
 
-    write(2, args[1], strlen(args[1]));
+	write(2, args[1], strlen(args[1]));
 
-    write(2, "\n", 1);
+	write(2, "\n", 1);
 }
 
 /**
@@ -47,31 +47,31 @@ void _exit_error(char *av[], int counter, char *args[])
  */
 void _exit_127(char *av[], int counter, char *args[])
 {
-    char count_buffer[12];
-    char *countMsg;
-    char *illegalMsg;
-    char *message;
+	char count_buffer[12];
+	char *countMsg;
+	char *illegalMsg;
+	char *message;
 
-    _itos(counter, count_buffer);
+	_itos(counter, count_buffer);
 
-    message = av[0];
-    write(2, message, strlen(message));
+	message = av[0];
+	write(2, message, strlen(message));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    countMsg = count_buffer;
-    write(2, countMsg, strlen(countMsg));
+	countMsg = count_buffer;
+	write(2, countMsg, strlen(countMsg));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    write(2, args[0], strlen(args[0]));
+	write(2, args[0], strlen(args[0]));
 
-    write(2, ": ", 2);
+	write(2, ": ", 2);
 
-    illegalMsg = "not found";
-    write(2, illegalMsg, strlen(illegalMsg));
+	illegalMsg = "not found";
+	write(2, illegalMsg, strlen(illegalMsg));
 
-    write(2, "\n", 1);
+	write(2, "\n", 1);
 }
 /**
  * _unknown - function to print an error

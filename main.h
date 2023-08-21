@@ -7,6 +7,9 @@
 #define MAX_INPUT_SIZE 1024
 #define MAX_ARGUMENTS 512
 #define MAX_ARGS 20
+/****************/
+#define MAX_ENV_LEN 100
+/************************/
 extern char **environ;
 
 #include <stdio.h>
@@ -87,5 +90,8 @@ ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
 /***********File as input***********/
 int handleCommandFromFile(const char *filename, char **av);
 int exeCommand(char *line, char **av, int counter);
+/*********************/
+int _setenv(const char *key, const char *value, int overwrite);
+int _unsetenv(const char *key);
 
 #endif /* MAIN_H */

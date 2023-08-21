@@ -90,20 +90,31 @@ int _strncmp(const char *s1, const char *s2, size_t n)
 	}
 	return (0);
 }
+/**
+ * _strcspn - remove rejects
+ * @str:string
+ * @reject:rejects
+ * Return:clean string
+ */
 size_t _strcspn(const char *str, const char *reject)
 {
-    const char *s = str;
-    while (*s) {
-        const char *r = reject;
-        while (*r) {
-            if (*s == *r) {
-                return s - str;
-            }
-            r++;
-        }
-        s++;
-    }
-    return s - str;
+	const char *s;
+	const char *r;
+
+	s = str;
+	while (*s)
+	{
+		r = reject;
+
+		while (*r)
+		{
+			if (*s == *r)
+				return (s - str);
+			r++;
+		}
+		s++;
+	}
+	return (s - str);
 }
 
 

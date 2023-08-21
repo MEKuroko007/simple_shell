@@ -48,12 +48,12 @@ int exeCommand(char *line, char **av, int counter)
 	return (exitStatus);
 }
 /**
- * handleCommandFromFile - function to read the content of a file
+ * input_file - function to read the content of a file
  * @filename:name of file
  * @av:arguments
  * Return:exit code
  */
-int handleCommandFromFile(const char *filename, char **av)
+int input_file(const char *filename, char **av)
 {
 	int fd, counter = 0;
 	char buff[BUFFER_SIZE];

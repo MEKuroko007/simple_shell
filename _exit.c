@@ -20,17 +20,17 @@ int exit_shell(char *args[], char *av[], int counter, char *line)
 
 		if (!is_valid_integer(args[1]) || str_len > 11)
 		{
-			 _exit_error(av, counter, args);
+			_exit_error(av, counter, args);
 			exitStatus = 2;
 			free_arguments(args);
-		
+
 			return (2);
 		} else if (is_valid_integer(args[1]) && _atoi(args[1]) < 0)
 		{
-			 _exit_error(av, counter, args);
+			_exit_error(av, counter, args);
 			exitStatus = 2;
 			free_arguments(args);
-	
+
 			return (2); }
 		free_arguments(args);
 

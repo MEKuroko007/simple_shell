@@ -4,7 +4,6 @@
  * @counter:counter
  * @av:arguments
  * @args:commands
- * Return:Error message
  */
  /*******************************/
 void _exit_error(char *av[], int counter, char *args[])
@@ -39,17 +38,16 @@ void _exit_error(char *av[], int counter, char *args[])
 }
 
 /**
- * _not_found - generic error message for command not found
+ * _exit_127 - print error msg of 127
  * @av: arguments to obtain name of program
- * @i: counter
- * @cmd: command
- * Return: Error message
+ * @counter: counter
+ * @args: arguments
  */
 void _exit_127(char *av[], int counter, char *args[])
 {
 	char count_buffer[12];
 	char *countMsg;
-	char *illegalMsg;
+	char *NotFound;
 	char *message;
 
 	_itos(counter, count_buffer);
@@ -68,8 +66,8 @@ void _exit_127(char *av[], int counter, char *args[])
 
 	write(2, ": ", 2);
 
-	illegalMsg = "not found";
-	write(2, illegalMsg, strlen(illegalMsg));
+	NotFound = "not found";
+	write(2, NotFound, strlen(NotFound));
 
 	write(2, "\n", 1);
 }

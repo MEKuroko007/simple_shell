@@ -40,7 +40,7 @@ void _itos(int n, char *str);
 /********* cmd ***********/
 char *_cmd(char *command);
 char **_arguments(char *buf);
-char *search_in_path(char *command);
+char *_path(char *command);
 /******* func *******/
 int is_empty(const char *str);
 void free_arguments(char **args);
@@ -72,6 +72,9 @@ int exit_shell(char *args[], char *av[], int counter, char *line);
 int is_valid_integer(const char *str);
 /**/
 int _env(char *args[]);
+int handle_env(char **args, int *exitStatus, int *overwrite);
+int _setenv(const char *key, const char *value, int overwrite);
+int _unsetenv(const char *key);
 char *_getenv(const char *var);
 
 /***********execution**************/
@@ -85,13 +88,12 @@ void _unknown(char *av[], int counter);
 
 
 
-ssize_t _getline(char **lineptr, size_t *n, FILE *stream);
+ssize_t _getline(char **lineptr, size_t *n);
 
 /***********File as input***********/
-int handleCommandFromFile(const char *filename, char **av);
+int input_file(const char *filename, char **av);
 int exeCommand(char *line, char **av, int counter);
 /*********************/
-int _setenv(const char *key, const char *value, int overwrite);
-int _unsetenv(const char *key);
+
 
 #endif /* MAIN_H */

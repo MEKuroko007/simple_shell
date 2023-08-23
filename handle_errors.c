@@ -80,7 +80,7 @@ void _unknown(char *av[], int counter)
 {
 	char count_buffer[12];
 	char *countMsg;
-	char *file_Msg;
+	/*char *file_Msg;*/
 	char *message;
 	char *Msg;
 

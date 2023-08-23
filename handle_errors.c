@@ -96,7 +96,7 @@ void _unknown(char *av[], int counter)
 
 	write(2, ": ", 2);
 
-	Msg = "can't open ";
+	Msg = "Can't open ";
 	write(2, Msg, strlen(Msg));
 	write(2, av[1], strlen(av[1]));
 	/**

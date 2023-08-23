@@ -65,7 +65,7 @@ int input_file(const char *filename, char **av)
 	if (fd == -1)
 	{
 		_unknown(av, counter);
-		return (2);
+		return (127);
 	}
 	while ((readBytes = read(fd, buff, sizeof(buff))) > 0)
 	{

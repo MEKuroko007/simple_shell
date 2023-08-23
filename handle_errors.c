@@ -5,7 +5,7 @@
  * @av:arguments
  * @args:commands
  */
- /*******************************/
+/*******************************/
 void _exit_error(char *av[], int counter, char *args[])
 {
 	char count_buffer[12];
@@ -99,13 +99,13 @@ void _unknown(char *av[], int counter)
 	Msg = "can't open ";
 	write(2, Msg, strlen(Msg));
 	write(2, av[1], strlen(av[1]));
-/**
-* for ubuntu 22.04
-* write(2, ": ", 2);
-*
-* file_Msg = "No such file";
-* write(2, file_Msg, strlen(file_Msg));
-*/
+	/**
+	 * for ubuntu 22.04
+	 * write(2, ": ", 2);
+	 *
+	 * file_Msg = "No such file";
+	 * write(2, file_Msg, strlen(file_Msg));
+	 */
 
 	write(2, "\n", 1);
 }
